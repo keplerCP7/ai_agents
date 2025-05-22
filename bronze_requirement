@@ -1,0 +1,40 @@
+Historia de Usuario – Ingesta de Datos desde MySQL a Capa Bronze
+🧾 Historia de Usuario
+ID de la Historia: DPL-BRONZE-001
+Nombre: Ingesta de datos de MySQL hacia capa Bronze en formato Parquet
+Como ingeniero de datos del equipo de plataforma,
+quiero ingestar todos los datos de las tablas del esquema `etl_mvp` desde la base de datos MySQL hacia una capa de almacenamiento tipo Bronze,
+para que los datos estén disponibles sin transformaciones en formato Parquet y particionados por fecha, facilitando su trazabilidad y exploración inicial.
+📊 Criterios Funcionales de Aceptación
+- Todas las tablas del esquema `etl_mvp` deben ser extraídas completas sin transformación ni filtrado.
+- Los datos deben almacenarse en formato Parquet en una estructura de carpetas tipo `bronze/{tabla}/año/mes/día/`.
+- El particionamiento por año, mes y día debe basarse en los campos de fecha relevantes por tabla (ej. `fecha_registro`, `created_at`, `fecha_venta`, etc.).
+- Se debe respetar la estructura y tipos de datos originales de las tablas fuente.
+⚙️ Criterios Técnicos de Aceptación
+- El proceso debe ser desarrollado en un script de Python.
+- Los datos deben almacenarse como archivos Parquet con compresión Snappy.
+- Se debe garantizar que cada ejecución del pipeline identifique nuevos datos mediante control incremental (basado en fecha de corte o updated_at).
+- El proceso debe registrar logs de ejecución y manejar errores por tabla sin afectar el resto.
+- Se debe generar una bitácora o reporte técnico por carga con resumen de filas, fechas de corte y errores si los hubiera.
+📌 Definition of Ready (DoR)
+- [x] Conectividad validada con la base de datos `etl_mvp`.
+- [x] Lista de tablas, campos y claves primarias definida.
+- [x] Identificación del campo de partición por fecha por cada tabla.
+- [x] Acceso al sistema de archivos destino verificado (ej. S3/HDFS).
+- [x] Historia priorizada en backlog técnico.
+✅ Definition of Done (DoD)
+- [x] Archivos Parquet generados y accesibles por tabla.
+- [x] Particiones correctas por año/mes/día.
+- [x] Logs de ejecución consolidados.
+- [x] Validación de integridad y recuento de registros realizada.
+- [x] Documentación publicada en confluence/repositorio sobre estructura de ingestión.
+- [x] Código versionado en repositorio bajo path `etl/bronze/mysql_ingest/`.
+🔄 Dependencias
+- Acceso a la base de datos MySQL.
+- Configuración de Airflow o motor de orquestación.
+- Permisos de escritura en el sistema de archivos destino.
+🛠 Recomendaciones para Ingeniería de Datos
+- Usar extracción incremental siempre que sea posible.
+- Registrar diferencias en esquema detectadas durante ingesta.
+- Estandarizar nombres de columnas en minúsculas y sin espacios.
+- Configurar alertas en caso de fallos de ejecución por tabla.
