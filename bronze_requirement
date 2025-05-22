@@ -7,7 +7,7 @@ quiero ingestar todos los datos de las tablas del esquema `etl_mvp` desde la bas
 para que los datos estén disponibles sin transformaciones en formato Parquet y particionados por fecha, facilitando su trazabilidad y exploración inicial.
 📊 Criterios Funcionales de Aceptación
 - Todas las tablas del esquema `etl_mvp` deben ser extraídas completas sin transformación ni filtrado.
-- Los datos deben almacenarse en formato Parquet en una estructura de carpetas tipo `bronze/{tabla}/year=2025/mes=04/día=10/`.
+- Los datos deben almacenarse en formato Parquet en una estructura de carpetas tipo `bronze/{tabla}/year=2025/month=04/day=10/`.
 - El particionamiento por año, mes y día debe basarse en los campos de fecha relevantes por tabla (ej. `fecha_registro`, `created_at`, `fecha_venta`, etc.).
 - Se debe respetar la estructura y tipos de datos originales de las tablas fuente.
 ⚙️ Criterios Técnicos de Aceptación
